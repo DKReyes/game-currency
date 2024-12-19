@@ -1,10 +1,11 @@
-# Getting Started with Create React App
+# Game Currency Converter
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was created by Dylan Reyes and Ricky La.\
+The purpose of this app is to see the conversion rate of your currency to video game in-game currency.
 
-## Available Scripts
+## How does it work?
 
-In the project directory, you can run:
+Simply select one of the games listed with your selected choice of currency and enter the amount. Once you submit you will see a log that will indicate the convesion rate.
 
 ### `npm start`
 
@@ -39,7 +40,7 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+## Coding breakdown
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
