@@ -3,6 +3,22 @@ import { BsQuestionCircle } from "react-icons/bs";
 import emerald from './emerald.png'
 
 function main() {
+
+    const games = {
+        'Maplestory': {
+            amountPerDollar: 1000
+        },
+        'COD': {
+            amountPerDollar: 1000
+        },
+        'RuneScape': {
+            amountPerDollar: 1000
+        },
+        'Team Fight Tactics': {
+            amountPerDollar: 1000
+        },
+    }
+
     return (
         <>
             <div id='main'>
@@ -18,9 +34,12 @@ function main() {
                             </span>
                         </div>
                         <select class='gc-form-game'>
-                            <option value='maplestory'>Maplestory</option>
-                            <option value='cod'>Call of Duty</option>
-                            <option value='runescape'>Runescape</option>
+                            {Object.keys(games).map((game, index) => {
+                                return (
+                                    <option key={index} value={game}>{game}</option>
+                                )
+                                })
+                            }
                             <option value=''></option>
                         </select> 
 
