@@ -1,22 +1,52 @@
 import './main.css';
 import { BsQuestionCircle } from "react-icons/bs";
 import emerald from './emerald.png'
+import { useState } from 'react';
 
-function main() {
+function Main() {
+    
+    const games = [
+        {
+            game: "MapleStory",
+            amountPerDollar: 1000,
+        },
+        {
+            game: "COD",
+            amountPerDollar: 100,
+        },
+        {
+            game: "RuneScape",
+            amountPerDollar: 10,
+        },
+    ]
 
-    const games = {
-        'Maplestory': {
-            amountPerDollar: 1000
-        },
-        'COD': {
-            amountPerDollar: 1000
-        },
-        'RuneScape': {
-            amountPerDollar: 1000
-        },
-        'Team Fight Tactics': {
-            amountPerDollar: 1000
-        },
+    const currencies = {
+        USD: 1,
+        CAD: 1.44,
+        EUR: 0.96,
+    }
+
+    const [amount, setAmount] = useState(0);
+    const [currency, setCurrency] = useState('USD');
+    const [currentGame, setCurrentGame] = useState();
+    const [list, setList] = useState([]);
+
+    const pushToList = (message) => {
+        if(list.length === 10) list.pop();
+        setList([...list, message]);
+    }
+
+    const nxCalculation = (cur) => {
+        return 1/currencies[cur] * amount * 1000
+    }
+
+    const handleChange = (e) => {
+        setAmount(e.target.value);
+    }
+ 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        pushToList(`${games[currentGame].game} NX conversion as of DD/MM/YYYY's price is ${games[currentGame].amountPerDollar} to $${currencies[currency]} ${currency}. $${amount} ${currency} is ${nxCalculation(currency)} NX`);
     }
 
     return (
@@ -24,64 +54,61 @@ function main() {
             <div id='main'>
                 <img src={emerald} alt='emerald' />
                 {/* Converter */}
-                <div class='gc-main'>
-                <h1 class='main-title'>Game Currency Converter</h1> 
-                    <form class='gc-form'>
+                <div className='gc-main'>
+                <h1 className='main-title'>Game Currency Converter</h1> 
+                    <form className='gc-form'>
                         <div>
-                            <BsQuestionCircle class='gc-icon'/>
-                            <span class='gc-icon-tooltip'>
+                            <BsQuestionCircle className='gc-icon'/>
+                            <span className='gc-icon-tooltip'>
                                 The currency is based on the smallest purchase avaliable. No bonus in-game currency and taxes included in the calulations. Information is dependant on the conversion date.
                             </span>
                         </div>
-                        <select class='gc-form-game'>
-                            {Object.keys(games).map((game, index) => {
+                        <select className='gc-form-game' onChange={(e) => setCurrentGame(e.target.value)}>
+                            <option value=''>Choose a game</option>
+                            {games.map((game, index) => {
                                 return (
-                                    <option key={index} value={game}>{game}</option>
+                                    <option key={index} value={index}>{game.game}</option>
                                 )
-                                })
+                            })
                             }
-                            <option value=''></option>
                         </select> 
 
-                        <select class='gc-form-cur'>
-                            <option value='USD'>USD</option>
-                            <option value='CAD'>CAD</option>
-                            <option value='EUR'>EUR</option>
+                        <select className='gc-form-cur' onChange={(e) => setCurrency(e.target.value)}>
+                            {Object.keys(currencies).map((cur, index) => {
+                                return (
+                                    <option key={index} value={cur}>{cur}</option>
+                                )
+                            })}
                         </select>
-                        <input class='gc-form-amt' placeholder='AMT' type="number" min="1" step=".01"></input>
+                        <input className='gc-form-amt' name='amount' placeholder='AMT' type="number" min="1" step=".01" onChange={(e) => handleChange(e)}></input>
 
-                        <input class='gc-submit' type='submit' value='Calculate'/>
+                        <input className='gc-submit' type='submit' value='Calculate' onClick={(e) => handleSubmit(e)}/>
                     </form>
                 </div>
 
                 {/* Log */}
                 <div>
-                    <div class='gc-overlay'></div>
-                    <div class='gc-log'>
-                        {/* Placeholder Text - Limit to 10 */}
-                        <p>Maplestory NX conversion as of DD/MM/YYYY's price is &lt;&gt; to &lt;&gt; USD. $1 USD is &lt;&gt; NX</p>
-                        <p>Maplestory NX conversion as of DD/MM/YYYY's price &lt;&gt; USD. $1 USD is &lt;&gt; NX</p>
-                        <p>Maplestory NX conversion as of DD/MM/YYYY's price &lt;&gt; to &lt;&gt; USD. $1 USD is &lt;&gt; NX</p>
-                        <p>Maplestory NX conversion as of DD/MM/YYYY's price &lt;&gt; to &lt;&gt; USD. $1 USD is &lt;&gt; NX</p>
-                        <p>Test</p>
-                        <p>Test</p>
-                        <p>Test</p>
-                        <p>Test</p>
-                        <p>Test</p>
-                        <p>Maplestory NX conversion as of DD/MM/YYYY's price &lt;&gt; to &lt;&gt; USD. $1 USD is &lt;&gt; NX</p>
+                    <div className='gc-overlay'></div>
+                    <div className='gc-log'>
+                        {list.map((msg, index) => {
+                            return (
+                                <h1 key={index}>{msg}</h1>
+                            )
+                        }
+                    )}
                     </div>
                 </div>
             </div>
             <footer>
                 <p>Design By: Dylan Reyes</p>
                 <p>Function By: Ricky La</p>
-                <div class='hover'> Test
-                    <span class='hover-test'>Hover Test</span>
+                <div className='hover'> Test
+                    <span className='hover-test'>Hover Test</span>
                 </div>
             </footer>
         </>
     );
   }
   
-  export default main;
+  export default Main;
   
