@@ -32,8 +32,10 @@ function Main() {
     const [list, setList] = useState([]);
 
     const pushToList = (message) => {
-        if(list.length === 10) list.pop();
-        setList([...list, message]);
+        if(list.length === 10) {
+            list.pop();
+        }
+        setList([message, ...list]);
     }
 
     const nxCalculation = (cur) => {
@@ -42,6 +44,7 @@ function Main() {
 
     const handleChange = (e) => {
         setAmount(e.target.value);
+        console.log(list.reverse())
     }
  
     const handleSubmit = (e) => {
@@ -75,7 +78,7 @@ function Main() {
 
                         <select className='gc-form-cur' onChange={(e) => setCurrency(e.target.value)}>
                             {Object.keys(currencies).map((cur, index) => {
-                                return (
+                                return (    
                                     <option key={index} value={cur}>{cur}</option>
                                 )
                             })}
@@ -91,7 +94,7 @@ function Main() {
                     <div className='gc-overlay'></div>
                     <div className='gc-log'>
                         {list.map((msg, index) => {
-                            return (
+                            return ( 
                                 <h1 key={index}>{msg}</h1>
                             )
                         }
